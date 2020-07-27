@@ -56,6 +56,8 @@
         this.comment.articleId = this.articleId
         this.comment.createDate = new Date()
         api.ADD_COMMENT(this.comment).then(() => {
+          this.comment = {}
+          this.$parent.getList(this.articleId)
         })
       }
     }

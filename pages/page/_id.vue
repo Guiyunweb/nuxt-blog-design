@@ -12,25 +12,31 @@
     <article-comment :articleId="article.id" father=""></article-comment>
     <h2 style="margin: 20px 0">评论列表</h2>
 
-    <v-list-item three-line v-for="item in commentList" :key="item.id">
+    <v-list-item three-line v-for="(item,index) in commentList" :key="item.id">
       <v-list-item-avatar>
         <v-img :src="'https://sdn.geekzu.org/avatar/'+getMD5(item.email)"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
-          <h3>{{item.username}}</h3>
-          <span style="font-size: 10px">{{timeFromNow(item.createDate)}}</span>
+          <h3>{{item.username}}&nbsp;<span style="font-size: 10px">{{timeFromNow(item.createDate)}}</span></h3>
           <br>
           {{getMD5()}}
         </v-list-item-title>
-        <v-list-item-subtitle v-html="item.comment"></v-list-item-subtitle>
+        <v-list-item-subtitle>
+          {{item.comment}}
+<!--          <article-comment v-if="commentBoole && index===commentIndex" style="margin: 20px 0" :articleId="article.id" father=""></article-comment>-->
+        </v-list-item-subtitle>
       </v-list-item-content>
+<!--      <v-list-item-action>-->
+<!--        <v-btn text @click="addChildList(index)" color="primary">回复</v-btn>-->
+<!--      </v-list-item-action>-->
     </v-list-item>
   </div>
 </template>
 
 <script>
   import api from '../../api'
+  import moment from 'moment';
   import ArticleContent from "~/components/ArticleContent/index";
   import ArticleComment from "~/components/ArticleComment/index";
 
@@ -40,7 +46,9 @@
     data: () => ({
       article: {},
       comment: {},
-      commentList: []
+      commentList: [],
+      commentIndex: [],
+      commentBoole: false
     }),
     head() {
       return {
@@ -79,21 +87,25 @@
           return ""
         }
       },
-      // timeFromNow(time) {
-      //   const format = "YYYY-MM-DD HH:mm:ss";
-      //   const formatDate = "YYYY-MM-DD";
-      //   const formatTime = "HH:mm:ss";
-      //   let timeStr = moment(time).format(format);
-      //   if (moment(time).format(formatDate) === moment().format(formatDate)) {
-      //     const fromNowStr = moment(time).fromNow(true);
-      //     if (fromNowStr.indexOf("小时") > 0 && parseInt(fromNowStr) > 5) {
-      //       timeStr = "今天 " + moment(time).format(formatTime);
-      //     } else {
-      //       timeStr = fromNowStr + "前"
-      //     }
-      //   }
-      //   return timeStr
-      // }
+      addChildList(index){
+        this.commentIndex = index
+        this.commentBoole = true
+      },
+      timeFromNow(time) {
+        const format = "YYYY-MM-DD HH:mm:ss";
+        const formatDate = "YYYY-MM-DD";
+        const formatTime = "HH:mm:ss";
+        let timeStr = moment(time).format(format);
+        if (moment(time).format(formatDate) === moment().format(formatDate)) {
+          const fromNowStr = moment(time).fromNow(true);
+          if (fromNowStr.indexOf("小时") > 0 && parseInt(fromNowStr) > 5) {
+            timeStr = "今天 " + moment(time).format(formatTime);
+          } else {
+            timeStr = fromNowStr
+          }
+        }
+        return timeStr
+      }
     }
   }
 </script>
