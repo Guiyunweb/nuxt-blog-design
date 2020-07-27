@@ -79,7 +79,7 @@ function createRequestFunction (service) {
                 'Content-Type': get(config, 'headers.Content-Type', 'application/json')
             },
             timeout: 5000,
-            baseURL: 'http://localhost:8866',
+            baseURL: 'https://api.guiyunweb.com:8866',
             params:{},
             data: {}
         }
