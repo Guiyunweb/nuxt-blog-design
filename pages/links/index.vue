@@ -5,13 +5,20 @@
       申请友链请点击
       <v-btn @click="dialog = true" small color="primary">按钮</v-btn>
       申请添加友链
+      <br>
     </div>
-
+    <h2>我的网站信息</h2>
+    <div style="margin: 20px;font-weight: bold">
+      博客名称： 归云的个人网站<br>
+      博客链接： https://guiun.com<br>
+      博客头像： https://guiun.com/favicon.ico<br>
+      博客描述： 归云的个人小站<br>
+    </div>
     <h2>我的邻居们</h2>
 
     <v-row>
       <v-col cols="3" v-for="item in list" :key="item.id">
-        <v-card  dark v-ripple exact height="310">
+        <v-card dark v-ripple exact height="310">
           <v-img :src="item.cover" height="200px">
           </v-img>
           <v-card-title>

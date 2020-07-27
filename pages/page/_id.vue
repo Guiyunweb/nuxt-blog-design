@@ -113,6 +113,6 @@
 <style scoped>
   .design-hr {
     border: 1px dashed #f0f0f0;
-    margin: 20px 0;
+    margin: 50px 0;
   }
 </style>
