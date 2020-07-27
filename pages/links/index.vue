@@ -86,6 +86,7 @@
     methods: {
       getList() {
         api.SHOW_LINK().then(res => {
+          console.log(res)
           this.list = res.data
         })
       },
